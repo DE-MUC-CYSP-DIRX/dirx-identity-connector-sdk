@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2026 Atos Secure Digital GmbH
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+  Maven build of the connector template. It is equivalent to build.gradle.kts;
+  keep the build you prefer and delete the other one.
+
+    mvn verify                                  -> target/example-connector-1.0.0-connector.zip
+    mvn verify -Dconnector.sdk.repository=URL   -> additionally resolve the SDK from URL
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>example-connector</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <connector.sdk.version>1.0.0-SNAPSHOT</connector.sdk.version>
+        <connector.sdk.repository>https://repo.maven.apache.org/maven2</connector.sdk.repository>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <!-- Optional repository holding SDK builds that are not on Maven Central yet. -->
+        <repository>
+            <id>connector-sdk</id>
+            <url>${connector.sdk.repository}</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>solutions.dirx.identity</groupId>
+                <artifactId>dirx-dxi-connector-sdk-bom</artifactId>
+                <version>${connector.sdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.14.4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- The SDK API is provided by DirX Identity at runtime and must not be bundled. -->
+        <dependency>
+            <groupId>solutions.dirx.identity</groupId>
+            <artifactId>dirx-dxi-connector-sdk-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Optional helper modules. Unlike the API they are bundled with the connector.
+        <dependency>
+            <groupId>solutions.dirx.identity</groupId>
+            <artifactId>dirx-dxi-connector-sdk-rest</artifactId>
+        </dependency>
+        -->
+
+        <dependency>
+            <groupId>solutions.dirx.identity</groupId>
+            <artifactId>dirx-dxi-connector-sdk-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Implementation-Title>${project.artifactId}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- Deployable bundle: the connector jar plus its runtime dependencies, without the SDK API. -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/connector.xml</descriptor>
+                    </descriptors>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    <appendAssemblyId>true</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>connector-bundle</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

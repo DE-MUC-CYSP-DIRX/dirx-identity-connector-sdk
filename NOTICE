@@ -1,0 +1,15 @@
+DirX Identity Connector SDK
+Copyright 2026 Atos Secure Digital GmbH
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The optional helper modules depend on the following third-party software,
+which is not bundled in the SDK artifacts and is resolved from Maven repositories:
+
+* Jackson (tools.jackson.core:jackson-databind) - Apache License 2.0
+  used by dirx-dxi-connector-sdk-rest and dirx-dxi-connector-sdk-scim
+
+Test-only dependencies (not distributed):
+
+* JUnit 5 - Eclipse Public License 2.0
+* HSQLDB - BSD-style HSQLDB license (samples only)

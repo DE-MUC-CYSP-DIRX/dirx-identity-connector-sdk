@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Connector bundle for Maven builds; same layout as the Gradle task connectorBundle. -->
+<assembly>
+    <id>connector</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <baseDirectory>${project.artifactId}</baseDirectory>
+    <dependencySets>
+        <!-- Runtime scope excludes provided and test dependencies. The SDK API is excluded
+             explicitly because helper modules bring it in transitively. -->
+        <dependencySet>
+            <scope>runtime</scope>
+            <useProjectArtifact>true</useProjectArtifact>
+            <outputDirectory>/</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+            <excludes>
+                <exclude>solutions.dirx.identity:dirx-dxi-connector-sdk-api</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+</assembly>
