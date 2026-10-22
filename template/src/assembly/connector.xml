@@ -7,6 +7,12 @@
     </formats>
     <includeBaseDirectory>true</includeBaseDirectory>
     <baseDirectory>${project.artifactId}</baseDirectory>
+    <files>
+        <file>
+            <source>${project.basedir}/LICENSE</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+    </files>
     <dependencySets>
         <!-- Runtime scope excludes provided and test dependencies. The SDK API is excluded
              explicitly because helper modules bring it in transitively. -->

@@ -18,15 +18,16 @@ Report security vulnerabilities **privately** as described in [SECURITY.md](SECU
 5. Sign off your commits (`git commit -s`) to certify the
    [Developer Certificate of Origin](https://developercertificate.org/).
 
-By contributing you agree that your contribution is licensed under the Apache License 2.0.
+By contributing you agree that your contribution is licensed under the GNU Affero General
+Public License, version 3 only (`AGPL-3.0-only`), as provided in [LICENSE](LICENSE).
 
 ## Conventions
 
 - Java 21, no compiler warnings (`-Xlint:all -Werror`).
-- Every Java source file starts with the Apache-2.0 license header used in the existing files.
+- Every Java source file starts with the AGPL-3.0-only license header used in the existing files.
 - Packages live below `solutions.dirx.identity.connector.sdk`.
 - `dirx-dxi-connector-sdk-api` depends on the JDK only. Helper modules keep dependencies minimal and
-  Apache-2.0 compatible.
+  AGPL-3.0-only compatible.
 - Logging uses `java.lang.System.Logger`.
 - Public API changes must be backward compatible within a major version (see
   [docs/api-design.md](docs/api-design.md)); document every public type and method with Javadoc.

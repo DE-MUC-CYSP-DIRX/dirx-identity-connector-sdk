@@ -1,23 +1,25 @@
 /*
  * Copyright 2026 Atos Secure Digital GmbH
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * SPDX-License-Identifier: AGPL-3.0-only
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License, version 3,
+ * as published by the Free Software Foundation.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /**
  * Verifies the open-source conventions of every SDK module:
  *  - all sources live below the package `solutions.dirx.identity.connector.sdk`,
- *  - every source file carries the Apache-2.0 license header,
+ *  - every source file carries the AGPL-3.0-only license header,
  *  - no source imports DirX Identity internal packages (only the SDK's own packages),
  *  - no runtime dependency comes from DirX Identity internal groups (only SDK modules).
  */
@@ -49,8 +51,8 @@ abstract class VerifySdkConventions : DefaultTask() {
         sources.asFileTree.matching { include("**/*.java") }.forEach { f ->
             val text = f.readText()
             val head = text.lineSequence().take(20).joinToString("\n")
-            if (!head.contains("Licensed under the Apache License, Version 2.0")) {
-                violations += "${f.name}: missing Apache-2.0 license header"
+            if (!head.contains("SPDX-License-Identifier: AGPL-3.0-only")) {
+                violations += "${f.name}: missing AGPL-3.0-only license header"
             }
             val pkg = packageRegex.find(text)?.groupValues?.get(1)
             if (pkg == null || !(pkg == requiredPackage || pkg.startsWith("$requiredPackage."))) {
@@ -108,8 +110,8 @@ subprojects {
                 url.set(providers.gradleProperty("sdkProjectUrl"))
                 licenses {
                     license {
-                        name.set("Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        name.set("GNU Affero General Public License, version 3 only")
+                        url.set("https://www.gnu.org/licenses/agpl-3.0.html")
                         distribution.set("repo")
                     }
                 }

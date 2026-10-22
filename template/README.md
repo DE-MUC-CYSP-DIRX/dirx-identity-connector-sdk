@@ -4,6 +4,16 @@ Starting point for a DirX Identity connector built with the Connector SDK. It co
 complete, tested connector (`ExampleConnector`) that talks to a stand-in client
 (`ExampleClient`). Replace the client with the API of your target system.
 
+## License
+
+This template is licensed under the [GNU Affero General Public License, version 3
+only](LICENSE) (`AGPL-3.0-only`). Keep the license and copyright notices when copying
+it. Both builds include the license in the connector JAR and deployable bundle.
+When conveying covered connectors, provide corresponding source as required by the
+license. For modified versions supporting remote user interaction, also provide the
+source offer required by section 13. A binary bundle alone does not satisfy these
+source obligations. No exception for linking with proprietary hosts is granted.
+
 ## Use the template
 
 1. Copy this directory and rename the project in `settings.gradle.kts` (or `pom.xml`),

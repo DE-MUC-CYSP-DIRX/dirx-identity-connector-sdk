@@ -1,6 +1,6 @@
 # DirX Identity Connector SDK – API Design
 
-Status: draft v1 · Java 21 · License: Apache-2.0
+Status: draft v1 · Java 21 · License: AGPL-3.0-only
 
 ## 1. Goals
 

@@ -8,7 +8,16 @@ without depending on DirX Identity internals.
 * **Test kit** with reusable contract tests, so you can run your connector without DirX Identity.
 * **Template and samples** that build with Gradle or Maven.
 
-Licensed under the [Apache License 2.0](LICENSE).
+Licensed under the [GNU Affero General Public License, version 3 only](LICENSE)
+(`AGPL-3.0-only`). This includes the SDK, connector template and samples, except
+for third-party components that retain their own licenses (see [NOTICE](NOTICE)).
+
+When conveying covered works, you must comply with the license's corresponding-source
+requirements. Modified versions that support remote user interaction must prominently
+offer those users access to the corresponding source as required by section 13.
+The license does not require every private fork to be published publicly. Whether an
+independently written connector or a combination with a proprietary host is a covered
+work requires legal assessment; no linking exception is granted here.
 
 ## Modules
 
@@ -67,7 +76,7 @@ cd dirx-identity-connector-sdk
 On Windows, use `.\gradlew.bat` instead of `./gradlew`.
 This is a standalone repository: no DirX Identity checkout or internal build
 credentials are required. Product-specific adapters and factory data are
-maintained separately and are not part of this Apache-2.0 SDK.
+maintained separately and are not part of this AGPL-3.0-only SDK.
 
 To use a Maven mirror, set `SDK_MAVEN_MIRROR_URL` (and optionally `SDK_MAVEN_MIRROR_USERNAME`
 and `SDK_MAVEN_MIRROR_PASSWORD`).

@@ -6,6 +6,11 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Relicensed the SDK, connector template and samples from Apache-2.0 to
+  AGPL-3.0-only. Third-party components retain their original licenses.
+
 ## [1.0.0] - unreleased
 
 ### Added

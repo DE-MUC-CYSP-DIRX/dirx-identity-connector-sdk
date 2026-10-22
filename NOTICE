@@ -1,7 +1,11 @@
 DirX Identity Connector SDK
 Copyright 2026 Atos Secure Digital GmbH
 
-This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+This product is licensed under the GNU Affero General Public License,
+version 3 only (AGPL-3.0-only; see LICENSE).
+
+The Gradle wrapper scripts and wrapper JARs retain their upstream Apache
+License 2.0. A copy is provided in gradle/LICENSE-Apache-2.0.txt.
 
 The optional helper modules depend on the following third-party software,
 which is not bundled in the SDK artifacts and is resolved from Maven repositories:
