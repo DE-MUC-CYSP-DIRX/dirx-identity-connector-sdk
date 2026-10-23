@@ -80,6 +80,9 @@ public abstract class ConnectorContractTests {
     private ConnectorTestKit kit;
     private final List<Identifier> created = new ArrayList<>();
 
+    public ConnectorContractTests() {
+    }
+
     /**
      * Creates a new, uninitialized connector instance.
      *

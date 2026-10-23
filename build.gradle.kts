@@ -54,9 +54,11 @@ abstract class VerifySdkConventions : DefaultTask() {
             if (!head.contains("SPDX-License-Identifier: AGPL-3.0-only")) {
                 violations += "${f.name}: missing AGPL-3.0-only license header"
             }
-            val pkg = packageRegex.find(text)?.groupValues?.get(1)
-            if (pkg == null || !(pkg == requiredPackage || pkg.startsWith("$requiredPackage."))) {
-                violations += "${f.name}: package '$pkg' is not below '$requiredPackage'"
+            if (f.name != "module-info.java") {
+                val pkg = packageRegex.find(text)?.groupValues?.get(1)
+                if (pkg == null || !(pkg == requiredPackage || pkg.startsWith("$requiredPackage."))) {
+                    violations += "${f.name}: package '$pkg' is not below '$requiredPackage'"
+                }
             }
             forbiddenImport.findAll(text).forEach { m ->
                 violations += "${f.name}: forbidden import '${m.value.trim()}'"
