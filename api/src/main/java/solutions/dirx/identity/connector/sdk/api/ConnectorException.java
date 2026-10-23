@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.api;
 
 import java.io.Serial;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /** A failure reported by a connector. */
 public class ConnectorException extends Exception {
@@ -35,7 +36,7 @@ public class ConnectorException extends Exception {
      * @param errorCode the error classification, not {@code null}
      * @param message   the message
      */
-    public ConnectorException(ErrorCode errorCode, String message) {
+    public ConnectorException(ErrorCode errorCode, @Nullable String message) {
         this(errorCode, message, null);
     }
 
@@ -46,7 +47,7 @@ public class ConnectorException extends Exception {
      * @param message   the message
      * @param cause     the cause, or {@code null}
      */
-    public ConnectorException(ErrorCode errorCode, String message, Throwable cause) {
+    public ConnectorException(ErrorCode errorCode, @Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
         this.errorCode = Objects.requireNonNull(errorCode, "errorCode");
     }

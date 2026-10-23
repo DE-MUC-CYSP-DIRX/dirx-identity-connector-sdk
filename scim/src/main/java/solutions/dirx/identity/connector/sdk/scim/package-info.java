@@ -20,4 +20,5 @@
  * SCIM 2.0 support: a generic {@link solutions.dirx.identity.connector.sdk.scim.ScimConnector}, filter
  * translation, PATCH building and error mapping.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.scim;

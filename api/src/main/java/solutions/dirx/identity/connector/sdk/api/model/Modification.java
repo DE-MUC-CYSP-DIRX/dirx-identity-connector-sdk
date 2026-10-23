@@ -21,6 +21,7 @@ package solutions.dirx.identity.connector.sdk.api.model;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A change of one attribute.
@@ -44,14 +45,16 @@ public record Modification(Operation operation, String attributeName, List<Objec
     }
 
     /** Validates and copies the components. */
-    public Modification {
+    public Modification(Operation operation, String attributeName, @Nullable List<Object> values) {
         Objects.requireNonNull(operation, "operation");
         Objects.requireNonNull(attributeName, "attributeName");
         if (attributeName.isBlank()) {
             throw new IllegalArgumentException("attribute name must not be blank");
         }
-        values = values == null ? List.of() : List.copyOf(values);
-        values.forEach(Attribute::checkValueType);
+        this.operation = operation;
+        this.attributeName = attributeName;
+        this.values = values == null ? List.of() : List.copyOf(values);
+        this.values.forEach(Attribute::checkValueType);
     }
 
     /**

@@ -28,6 +28,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.SecretValue;
 
 /**
@@ -124,7 +125,7 @@ public final class MapConnectorConfiguration implements ConnectorConfiguration {
     public static final class Builder {
         private final Map<String, List<String>> properties = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         private final Map<String, SecretValue> secrets = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        private ConnectionSettings connection;
+        private @Nullable ConnectionSettings connection;
 
         private Builder() {
         }
@@ -160,7 +161,7 @@ public final class MapConnectorConfiguration implements ConnectorConfiguration {
          * @param value the settings
          * @return this builder
          */
-        public Builder connection(ConnectionSettings value) {
+        public Builder connection(@Nullable ConnectionSettings value) {
             this.connection = value;
             return this;
         }

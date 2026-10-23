@@ -28,6 +28,7 @@ import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
 import solutions.dirx.identity.connector.sdk.api.model.Attribute;
@@ -54,7 +55,7 @@ public final class JdbcValues {
      * @return the parameter value
      * @throws ConnectorException {@link ErrorCode#SCHEMA_VIOLATION} if the value cannot be converted
      */
-    public static Object toParameter(Object value, JdbcColumn column) throws ConnectorException {
+    public static @Nullable Object toParameter(@Nullable Object value, JdbcColumn column) throws ConnectorException {
         if (value == null) {
             return null;
         }
@@ -93,7 +94,7 @@ public final class JdbcValues {
      * @return the value, or {@code null} if the column is {@code NULL}
      * @throws SQLException if reading fails
      */
-    public static Object read(ResultSet rs, int index) throws SQLException {
+    public static @Nullable Object read(ResultSet rs, int index) throws SQLException {
         Object value = rs.getObject(index);
         if (value == null) {
             return null;

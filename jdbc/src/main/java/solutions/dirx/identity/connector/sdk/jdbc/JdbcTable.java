@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
 
@@ -86,7 +87,8 @@ public record JdbcTable(String objectType, String quotedName, JdbcColumn keyColu
      * @throws SQLException       if reading the metadata fails
      * @throws ConnectorException {@link ErrorCode#CONFIGURATION} if the table or key column cannot be found
      */
-    public static JdbcTable load(Connection connection, String objectType, String tableName, String keyColumn)
+    public static JdbcTable load(Connection connection, String objectType, String tableName,
+                                 @Nullable String keyColumn)
             throws SQLException, ConnectorException {
         DatabaseMetaData meta = connection.getMetaData();
         String schema = null;

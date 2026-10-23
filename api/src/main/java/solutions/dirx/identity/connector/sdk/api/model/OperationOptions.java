@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Read-only, case-insensitive multi-value map of per-request options supplied by the host,
@@ -58,7 +59,7 @@ public final class OperationOptions {
      * @param options the options
      * @return the options
      */
-    public static OperationOptions of(Map<String, List<String>> options) {
+    public static OperationOptions of(@Nullable Map<String, List<String>> options) {
         return options == null || options.isEmpty() ? EMPTY : new OperationOptions(options);
     }
 

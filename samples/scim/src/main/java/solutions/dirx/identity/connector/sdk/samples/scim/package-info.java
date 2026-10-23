@@ -22,4 +22,5 @@
  * object types, maps the SCIM enterprise extension to flat attribute names, and derives an
  * attribute on create.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.samples.scim;

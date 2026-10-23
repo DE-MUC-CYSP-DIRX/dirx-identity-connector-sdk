@@ -19,4 +19,5 @@
 /**
  * Data model exchanged between host and connector: identifiers, attributes, modifications, objects, search filters, options and schema.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.api.model;

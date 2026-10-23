@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.api;
 
 import java.util.List;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.Identifier;
 import solutions.dirx.identity.connector.sdk.api.model.Modification;
 import solutions.dirx.identity.connector.sdk.api.model.OperationOptions;
@@ -35,14 +36,17 @@ import solutions.dirx.identity.connector.sdk.api.model.OperationOptions;
  * @param modifications the modifications, applied in order
  * @param options       per-request options; {@code null} is normalized to empty options
  */
-public record UpdateRequest(String objectType, Identifier identifier, List<Modification> modifications,
+public record UpdateRequest(@Nullable String objectType, Identifier identifier, List<Modification> modifications,
                             OperationOptions options) {
 
     /** Validates and copies the components. */
-    public UpdateRequest {
+    public UpdateRequest(@Nullable String objectType, Identifier identifier,
+                         @Nullable List<Modification> modifications, @Nullable OperationOptions options) {
         Objects.requireNonNull(identifier, "identifier");
-        modifications = modifications == null ? List.of() : List.copyOf(modifications);
-        options = options == null ? OperationOptions.empty() : options;
+        this.objectType = objectType;
+        this.identifier = identifier;
+        this.modifications = modifications == null ? List.of() : List.copyOf(modifications);
+        this.options = options == null ? OperationOptions.empty() : options;
     }
 
     /**
@@ -52,7 +56,8 @@ public record UpdateRequest(String objectType, Identifier identifier, List<Modif
      * @param identifier    the identifier
      * @param modifications the modifications
      */
-    public UpdateRequest(String objectType, Identifier identifier, List<Modification> modifications) {
+    public UpdateRequest(@Nullable String objectType, Identifier identifier,
+                         @Nullable List<Modification> modifications) {
         this(objectType, identifier, modifications, null);
     }
 }

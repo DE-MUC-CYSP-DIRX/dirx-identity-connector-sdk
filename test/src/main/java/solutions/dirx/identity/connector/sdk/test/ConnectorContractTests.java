@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import java.util.UUID;
 
 import org.junit.jupiter.api.AfterEach;
@@ -77,7 +78,7 @@ import solutions.dirx.identity.connector.sdk.api.model.SecretValue;
  */
 public abstract class ConnectorContractTests {
 
-    private ConnectorTestKit kit;
+    private @Nullable ConnectorTestKit kit;
     private final List<Identifier> created = new ArrayList<>();
 
     public ConnectorContractTests() {
@@ -119,7 +120,7 @@ public abstract class ConnectorContractTests {
      *
      * @return the modification, or {@code null} to skip the update tests
      */
-    protected Modification sampleModification() {
+    protected @Nullable Modification sampleModification() {
         return null;
     }
 
@@ -130,7 +131,7 @@ public abstract class ConnectorContractTests {
      * @param request the create request
      * @return the filter, or {@code null} to skip the filter test
      */
-    protected SearchFilter filterMatching(CreateRequest request) {
+    protected @Nullable SearchFilter filterMatching(CreateRequest request) {
         return null;
     }
 

@@ -17,6 +17,8 @@
  */
 
 module solutions.dirx.identity.connector.sdk.api {
+    requires static transitive org.jspecify;
+
     exports solutions.dirx.identity.connector.sdk.api;
     exports solutions.dirx.identity.connector.sdk.api.config;
     exports solutions.dirx.identity.connector.sdk.api.model;

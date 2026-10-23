@@ -22,4 +22,5 @@
  * metadata-based table descriptions, value conversion and SQL error mapping. Only {@code java.sql}
  * is used; JDBC drivers are supplied by the deployment.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.jdbc;

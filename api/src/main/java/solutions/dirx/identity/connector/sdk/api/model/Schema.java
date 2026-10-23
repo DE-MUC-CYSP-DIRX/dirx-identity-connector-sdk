@@ -21,6 +21,7 @@ package solutions.dirx.identity.connector.sdk.api.model;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The schema of a target system, as reported by schema discovery.
@@ -30,8 +31,8 @@ import java.util.Optional;
 public record Schema(List<ObjectClassInfo> objectClasses) {
 
     /** Copies the components. */
-    public Schema {
-        objectClasses = objectClasses == null ? List.of() : List.copyOf(objectClasses);
+    public Schema(@Nullable List<ObjectClassInfo> objectClasses) {
+        this.objectClasses = objectClasses == null ? List.of() : List.copyOf(objectClasses);
     }
 
     /**
@@ -63,9 +64,10 @@ public record Schema(List<ObjectClassInfo> objectClasses) {
     public record ObjectClassInfo(String name, List<AttributeInfo> attributes) {
 
         /** Validates and copies the components. */
-        public ObjectClassInfo {
+        public ObjectClassInfo(String name, @Nullable List<AttributeInfo> attributes) {
             Objects.requireNonNull(name, "name");
-            attributes = attributes == null ? List.of() : List.copyOf(attributes);
+            this.name = name;
+            this.attributes = attributes == null ? List.of() : List.copyOf(attributes);
         }
 
         /**
@@ -121,9 +123,16 @@ public record Schema(List<ObjectClassInfo> objectClasses) {
                                 boolean creatable, boolean updatable, boolean readable) {
 
         /** Validates the components. */
-        public AttributeInfo {
+        public AttributeInfo(String name, @Nullable AttributeType type, boolean multiValued, boolean required,
+                             boolean creatable, boolean updatable, boolean readable) {
             Objects.requireNonNull(name, "name");
-            type = type == null ? AttributeType.STRING : type;
+            this.name = name;
+            this.type = type == null ? AttributeType.STRING : type;
+            this.multiValued = multiValued;
+            this.required = required;
+            this.creatable = creatable;
+            this.updatable = updatable;
+            this.readable = readable;
         }
 
         /**

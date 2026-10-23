@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -326,7 +327,7 @@ public class CsvConnector implements Connector, TestOp, SchemaOp, CreateOp, Sear
         return values;
     }
 
-    private static int parseCookie(String cookie) throws ConnectorException {
+    private static int parseCookie(@Nullable String cookie) throws ConnectorException {
         if (cookie == null || cookie.isEmpty()) {
             return 0;
         }

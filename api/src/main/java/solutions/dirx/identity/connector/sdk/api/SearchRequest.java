@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.api;
 
 import java.util.Set;
 import java.util.TreeSet;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.Identifier;
 import solutions.dirx.identity.connector.sdk.api.model.OperationOptions;
 import solutions.dirx.identity.connector.sdk.api.model.SearchFilter;
@@ -38,13 +39,18 @@ import solutions.dirx.identity.connector.sdk.api.model.SearchScope;
  * @param pageCookie      the cookie returned by the previous page, or {@code null} for the first page
  * @param options         per-request options; {@code null} is normalized to empty options
  */
-public record SearchRequest(String objectType, Identifier base, SearchScope scope, SearchFilter filter,
-                            Set<String> attributesToGet, int pageSize, String pageCookie,
+public record SearchRequest(@Nullable String objectType, @Nullable Identifier base, SearchScope scope,
+                            @Nullable SearchFilter filter, Set<String> attributesToGet, int pageSize,
+                            @Nullable String pageCookie,
                             OperationOptions options) {
 
     /** Validates and normalizes the components. */
-    public SearchRequest {
-        scope = scope == null ? SearchScope.SUBTREE : scope;
+    public SearchRequest(@Nullable String objectType, @Nullable Identifier base, @Nullable SearchScope scope,
+                         @Nullable SearchFilter filter, @Nullable Set<String> attributesToGet, int pageSize,
+                         @Nullable String pageCookie, @Nullable OperationOptions options) {
+        this.objectType = objectType;
+        this.base = base;
+        this.scope = scope == null ? SearchScope.SUBTREE : scope;
         if (pageSize < 0) {
             throw new IllegalArgumentException("pageSize must not be negative");
         }
@@ -52,8 +58,11 @@ public record SearchRequest(String objectType, Identifier base, SearchScope scop
         if (attributesToGet != null) {
             attrs.addAll(attributesToGet);
         }
-        attributesToGet = java.util.Collections.unmodifiableSet(attrs);
-        options = options == null ? OperationOptions.empty() : options;
+        this.filter = filter;
+        this.attributesToGet = java.util.Collections.unmodifiableSet(attrs);
+        this.pageSize = pageSize;
+        this.pageCookie = pageCookie;
+        this.options = options == null ? OperationOptions.empty() : options;
     }
 
     /**
@@ -63,7 +72,7 @@ public record SearchRequest(String objectType, Identifier base, SearchScope scop
      * @param filter     the filter, or {@code null} for all objects
      * @return the request
      */
-    public static SearchRequest of(String objectType, SearchFilter filter) {
+    public static SearchRequest of(@Nullable String objectType, @Nullable SearchFilter filter) {
         return new SearchRequest(objectType, null, SearchScope.SUBTREE, filter, Set.of(), 0, null, null);
     }
 
@@ -74,7 +83,7 @@ public record SearchRequest(String objectType, Identifier base, SearchScope scop
      * @param identifier the object to read
      * @return the request
      */
-    public static SearchRequest read(String objectType, Identifier identifier) {
+    public static SearchRequest read(@Nullable String objectType, Identifier identifier) {
         return new SearchRequest(objectType, identifier, SearchScope.OBJECT, null, Set.of(), 0, null, null);
     }
 
@@ -85,7 +94,7 @@ public record SearchRequest(String objectType, Identifier base, SearchScope scop
      * @param cookie the page cookie, or {@code null} for the first page
      * @return the copy
      */
-    public SearchRequest withPage(int size, String cookie) {
+    public SearchRequest withPage(int size, @Nullable String cookie) {
         return new SearchRequest(objectType, base, scope, filter, attributesToGet, size, cookie, options);
     }
 
@@ -95,7 +104,7 @@ public record SearchRequest(String objectType, Identifier base, SearchScope scop
      * @param attributes the attribute names
      * @return the copy
      */
-    public SearchRequest withAttributesToGet(Set<String> attributes) {
+    public SearchRequest withAttributesToGet(@Nullable Set<String> attributes) {
         return new SearchRequest(objectType, base, scope, filter, attributes, pageSize, pageCookie, options);
     }
 

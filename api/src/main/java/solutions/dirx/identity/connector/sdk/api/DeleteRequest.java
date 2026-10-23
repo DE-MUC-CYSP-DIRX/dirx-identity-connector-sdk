@@ -19,6 +19,7 @@
 package solutions.dirx.identity.connector.sdk.api;
 
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.Identifier;
 import solutions.dirx.identity.connector.sdk.api.model.OperationOptions;
 
@@ -29,12 +30,14 @@ import solutions.dirx.identity.connector.sdk.api.model.OperationOptions;
  * @param identifier the object to delete
  * @param options    per-request options; {@code null} is normalized to empty options
  */
-public record DeleteRequest(String objectType, Identifier identifier, OperationOptions options) {
+public record DeleteRequest(@Nullable String objectType, Identifier identifier, OperationOptions options) {
 
     /** Validates the components. */
-    public DeleteRequest {
+    public DeleteRequest(@Nullable String objectType, Identifier identifier, @Nullable OperationOptions options) {
         Objects.requireNonNull(identifier, "identifier");
-        options = options == null ? OperationOptions.empty() : options;
+        this.objectType = objectType;
+        this.identifier = identifier;
+        this.options = options == null ? OperationOptions.empty() : options;
     }
 
     /**
@@ -43,7 +46,7 @@ public record DeleteRequest(String objectType, Identifier identifier, OperationO
      * @param objectType the object type
      * @param identifier the identifier
      */
-    public DeleteRequest(String objectType, Identifier identifier) {
+    public DeleteRequest(@Nullable String objectType, Identifier identifier) {
         this(objectType, identifier, null);
     }
 }

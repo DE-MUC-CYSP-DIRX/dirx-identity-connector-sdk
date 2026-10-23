@@ -17,6 +17,7 @@
  */
 
 module solutions.dirx.identity.connector.sdk.jdbc {
+    requires static transitive org.jspecify;
     requires transitive solutions.dirx.identity.connector.sdk.api;
     requires transitive java.sql;
 

@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.rest;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
 
@@ -57,7 +58,7 @@ public final class PageCookies {
      * @return the offset
      * @throws ConnectorException with {@link ErrorCode#INVALID_REQUEST} if the cookie is invalid
      */
-    public static long offset(String cookie, long initialOffset) throws ConnectorException {
+    public static long offset(@Nullable String cookie, long initialOffset) throws ConnectorException {
         if (cookie == null || cookie.isEmpty()) {
             return initialOffset;
         }
@@ -86,7 +87,7 @@ public final class PageCookies {
      * @return the token, or {@code null} for the first page
      * @throws ConnectorException with {@link ErrorCode#INVALID_REQUEST} if the cookie is invalid
      */
-    public static String token(String cookie) throws ConnectorException {
+    public static @Nullable String token(@Nullable String cookie) throws ConnectorException {
         if (cookie == null || cookie.isEmpty()) {
             return null;
         }

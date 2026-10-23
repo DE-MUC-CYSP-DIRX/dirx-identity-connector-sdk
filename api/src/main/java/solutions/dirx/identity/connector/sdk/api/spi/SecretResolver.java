@@ -19,6 +19,7 @@
 package solutions.dirx.identity.connector.sdk.api.spi;
 
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.model.SecretValue;
 
@@ -42,5 +43,5 @@ public interface SecretResolver {
      * @return the secret, or empty if there is no value
      * @throws ConnectorException if the value cannot be decrypted
      */
-    Optional<SecretValue> resolve(String propertyName, String storedValue) throws ConnectorException;
+    Optional<SecretValue> resolve(String propertyName, @Nullable String storedValue) throws ConnectorException;
 }

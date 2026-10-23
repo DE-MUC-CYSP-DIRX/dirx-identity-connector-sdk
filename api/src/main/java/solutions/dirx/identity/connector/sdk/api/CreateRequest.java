@@ -21,6 +21,7 @@ package solutions.dirx.identity.connector.sdk.api;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.Attribute;
 import solutions.dirx.identity.connector.sdk.api.model.Identifier;
 import solutions.dirx.identity.connector.sdk.api.model.OperationOptions;
@@ -35,14 +36,17 @@ import solutions.dirx.identity.connector.sdk.api.model.OperationOptions;
  * @param attributes the attributes of the new object
  * @param options    per-request options; {@code null} is normalized to empty options
  */
-public record CreateRequest(String objectType, Identifier identifier, List<Attribute> attributes,
+public record CreateRequest(@Nullable String objectType, Identifier identifier, List<Attribute> attributes,
                             OperationOptions options) {
 
     /** Validates and copies the components. */
-    public CreateRequest {
+    public CreateRequest(@Nullable String objectType, Identifier identifier, @Nullable List<Attribute> attributes,
+                         @Nullable OperationOptions options) {
         Objects.requireNonNull(identifier, "identifier");
-        attributes = attributes == null ? List.of() : List.copyOf(attributes);
-        options = options == null ? OperationOptions.empty() : options;
+        this.objectType = objectType;
+        this.identifier = identifier;
+        this.attributes = attributes == null ? List.of() : List.copyOf(attributes);
+        this.options = options == null ? OperationOptions.empty() : options;
     }
 
     /**
@@ -52,7 +56,7 @@ public record CreateRequest(String objectType, Identifier identifier, List<Attri
      * @param identifier the identifier
      * @param attributes the attributes
      */
-    public CreateRequest(String objectType, Identifier identifier, List<Attribute> attributes) {
+    public CreateRequest(@Nullable String objectType, Identifier identifier, @Nullable List<Attribute> attributes) {
         this(objectType, identifier, attributes, null);
     }
 

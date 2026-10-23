@@ -32,6 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
 import solutions.dirx.identity.connector.sdk.api.model.SecretValue;
@@ -50,14 +51,14 @@ public final class OAuth2ClientCredentials implements HttpAuthentication {
     private final URI tokenUri;
     private final String clientId;
     private final SecretValue clientSecret;
-    private final String scope;
+    private final @Nullable String scope;
     private final boolean credentialsInBody;
     private final Map<String, String> extraParameters;
     private final HttpClient httpClient;
     private final Duration timeout;
     private final Clock clock;
 
-    private SecretValue accessToken;
+    private @Nullable SecretValue accessToken;
     private Instant expiresAt = Instant.MIN;
 
     private OAuth2ClientCredentials(Builder b) {
@@ -180,10 +181,10 @@ public final class OAuth2ClientCredentials implements HttpAuthentication {
         private final URI tokenUri;
         private final String clientId;
         private final SecretValue clientSecret;
-        private String scope;
+        private @Nullable String scope;
         private boolean credentialsInBody;
         private final Map<String, String> extraParameters = new LinkedHashMap<>();
-        private HttpClient httpClient;
+        private @Nullable HttpClient httpClient;
         private Duration timeout = Duration.ofSeconds(30);
         private Clock clock = Clock.systemUTC();
 
@@ -199,7 +200,7 @@ public final class OAuth2ClientCredentials implements HttpAuthentication {
          * @param value space separated scopes
          * @return this builder
          */
-        public Builder scope(String value) {
+        public Builder scope(@Nullable String value) {
             this.scope = value;
             return this;
         }

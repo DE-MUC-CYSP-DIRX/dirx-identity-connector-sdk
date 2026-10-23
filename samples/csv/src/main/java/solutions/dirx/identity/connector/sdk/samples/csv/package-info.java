@@ -21,4 +21,5 @@
  * how to implement every operation interface, including client-side filtering with {@link
  * solutions.dirx.identity.connector.sdk.api.model.FilterEvaluator} and offset-based paging.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.samples.csv;

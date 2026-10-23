@@ -19,4 +19,5 @@
 /**
  * Discovery and metadata of connectors, and hooks implemented by hosts.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.api.spi;

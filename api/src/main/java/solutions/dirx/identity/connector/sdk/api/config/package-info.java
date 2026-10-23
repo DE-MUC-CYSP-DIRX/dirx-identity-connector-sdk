@@ -19,4 +19,5 @@
 /**
  * Connector configuration, connection settings and the context handed to a connector.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.api.config;

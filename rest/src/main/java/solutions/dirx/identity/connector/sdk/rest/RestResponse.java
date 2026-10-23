@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.rest;
 
 import java.net.http.HttpHeaders;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.node.MissingNode;
@@ -40,9 +41,10 @@ public record RestResponse(int statusCode, HttpHeaders headers, String body) {
      * @param headers    the response headers, {@code null} for none
      * @param body       the body, {@code null} for none
      */
-    public RestResponse {
-        headers = headers != null ? headers : HttpHeaders.of(java.util.Map.of(), (a, b) -> true);
-        body = body != null ? body : "";
+    public RestResponse(int statusCode, @Nullable HttpHeaders headers, @Nullable String body) {
+        this.statusCode = statusCode;
+        this.headers = headers != null ? headers : HttpHeaders.of(java.util.Map.of(), (a, b) -> true);
+        this.body = body != null ? body : "";
     }
 
     /**

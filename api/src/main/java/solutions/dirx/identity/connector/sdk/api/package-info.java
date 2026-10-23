@@ -19,4 +19,5 @@
 /**
  * Core API of the DirX Identity Connector SDK: the {@link solutions.dirx.identity.connector.sdk.api.Connector} lifecycle, the capability interfaces of the supported operations, their requests and results, and errors.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.api;

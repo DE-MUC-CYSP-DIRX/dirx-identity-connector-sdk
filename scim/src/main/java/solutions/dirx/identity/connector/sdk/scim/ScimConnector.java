@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.Connector;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.CreateOp;
@@ -118,15 +119,15 @@ public class ScimConnector implements Connector, TestOp, CreateOp, SearchOp, Upd
     public static final Set<String> DEFAULT_MULTI_VALUED = Set.of("emails", "phoneNumbers", "ims", "photos",
             "addresses", "groups", "entitlements", "roles", "x509Certificates", "members", "schemas");
 
-    private RestClient client;
-    private ConnectorConfiguration configuration;
+    private @Nullable RestClient client;
+    private @Nullable ConnectorConfiguration configuration;
     private final Map<String, String> endpoints = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Set<String> multiValued = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-    private ScimFilterTranslator filterTranslator;
-    private String createIdentifierAttribute;
+    private @Nullable ScimFilterTranslator filterTranslator;
+    private @Nullable String createIdentifierAttribute;
     private boolean usePut;
     private int defaultPageSize;
-    private String testPath;
+    private @Nullable String testPath;
 
     /** Creates the connector. */
     public ScimConnector() {
@@ -335,7 +336,7 @@ public class ScimConnector implements Connector, TestOp, CreateOp, SearchOp, Upd
         }
     }
 
-    private static String attributesParameter(SearchRequest request) {
+    private static @Nullable String attributesParameter(SearchRequest request) {
         if (request.attributesToGet().isEmpty()) {
             return null;
         }
@@ -351,7 +352,7 @@ public class ScimConnector implements Connector, TestOp, CreateOp, SearchOp, Upd
      * @throws ConnectorException if the resource has no id
      */
     protected ConnectorObject toConnectorObject(SearchRequest request, JsonNode resource) throws ConnectorException {
-        String id = resource.path("id").asString(null);
+        @Nullable String id = resource.path("id").asString(null);
         if (id == null) {
             throw new ConnectorException(ErrorCode.OTHER, "SCIM resource without id: " + resource);
         }

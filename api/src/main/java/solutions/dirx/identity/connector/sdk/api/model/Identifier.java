@@ -19,6 +19,7 @@
 package solutions.dirx.identity.connector.sdk.api.model;
 
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Identifies an object in the target system.
@@ -29,9 +30,10 @@ import java.util.Objects;
 public record Identifier(String value, IdentifierType type) {
 
     /** Validates and normalizes the components. */
-    public Identifier {
+    public Identifier(String value, @Nullable IdentifierType type) {
         Objects.requireNonNull(value, "value");
-        type = type == null ? IdentifierType.GENERIC : type;
+        this.value = value;
+        this.type = type == null ? IdentifierType.GENERIC : type;
     }
 
     /**

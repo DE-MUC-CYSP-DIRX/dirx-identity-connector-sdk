@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.Attribute;
 import solutions.dirx.identity.connector.sdk.api.model.Modification;
 import solutions.dirx.identity.connector.sdk.api.model.SecretValue;
@@ -75,7 +76,7 @@ public final class Json {
      * @param exclude top-level property names to skip (case-sensitive), e.g. the id property
      * @return the attributes in document order
      */
-    public static List<Attribute> toAttributes(JsonNode node, String... exclude) {
+    public static List<Attribute> toAttributes(@Nullable JsonNode node, String... exclude) {
         Map<String, List<Object>> values = new LinkedHashMap<>();
         if (node != null && node.isObject()) {
             List<String> excluded = List.of(exclude);
@@ -124,7 +125,7 @@ public final class Json {
      * @param node the node
      * @return the value, or {@code null} for JSON {@code null}
      */
-    public static Object toValue(JsonNode node) {
+    public static @Nullable Object toValue(@Nullable JsonNode node) {
         if (node == null || node.isNull() || node.isMissingNode()) {
             return null;
         }
@@ -150,7 +151,7 @@ public final class Json {
      * @param value the value
      * @return the node
      */
-    public static JsonNode toNode(Object value) {
+    public static JsonNode toNode(@Nullable Object value) {
         JsonNodeFactory f = MAPPER.getNodeFactory();
         return switch (value) {
             case null -> f.nullNode();

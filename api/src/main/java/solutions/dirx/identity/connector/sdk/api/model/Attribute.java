@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A named, possibly multi-valued attribute.
@@ -38,13 +39,14 @@ import java.util.Optional;
 public record Attribute(String name, List<Object> values) {
 
     /** Validates and copies the components. */
-    public Attribute {
+    public Attribute(String name, @Nullable List<Object> values) {
         Objects.requireNonNull(name, "name");
         if (name.isBlank()) {
             throw new IllegalArgumentException("attribute name must not be blank");
         }
-        values = values == null ? List.of() : List.copyOf(values);
-        values.forEach(Attribute::checkValueType);
+        this.name = name;
+        this.values = values == null ? List.of() : List.copyOf(values);
+        this.values.forEach(Attribute::checkValueType);
     }
 
     /**
@@ -54,7 +56,7 @@ public record Attribute(String name, List<Object> values) {
      * @param values the values
      * @return the attribute
      */
-    public static Attribute of(String name, Object... values) {
+    public static Attribute of(String name, @Nullable Object @Nullable ... values) {
         return new Attribute(name, values == null ? List.of() : Arrays.asList(values));
     }
 
@@ -125,7 +127,7 @@ public record Attribute(String name, List<Object> values) {
      * @param value the value
      * @return the string representation
      */
-    public static String asString(Object value) {
+    public static String asString(@Nullable Object value) {
         return switch (value) {
             case String s -> s;
             case byte[] b -> new String(b, java.nio.charset.StandardCharsets.UTF_8);

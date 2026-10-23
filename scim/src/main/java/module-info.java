@@ -17,6 +17,7 @@
  */
 
 module solutions.dirx.identity.connector.sdk.scim {
+    requires static transitive org.jspecify;
     requires transitive solutions.dirx.identity.connector.sdk.api;
     requires transitive solutions.dirx.identity.connector.sdk.rest;
     requires transitive tools.jackson.databind;

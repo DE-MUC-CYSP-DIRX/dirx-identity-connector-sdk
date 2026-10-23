@@ -3,7 +3,8 @@
 Build provisioning connectors for [DirX Identity](https://www.dirx.solutions) in plain Java 21,
 without depending on DirX Identity internals.
 
-* **Small, stable core API.** It uses only the JDK and has no third-party dependencies.
+* **Small, stable core API.** It has no runtime implementation dependencies beyond the JDK.
+  JSpecify provides nullness annotations for the public APIs.
 * **Helper modules** for REST/JSON, SCIM 2.0 and JDBC targets.
 * **Test kit** with reusable contract tests, so you can run your connector without DirX Identity.
 * **Template and samples** that build with Gradle or Maven.
@@ -25,7 +26,7 @@ All artifacts use the groupId `solutions.dirx.identity`.
 
 | Artifact | Purpose | Dependencies |
 |---|---|---|
-| `dirx-dxi-connector-sdk-api` | Connector API, data model, configuration, errors, discovery | JDK only |
+| `dirx-dxi-connector-sdk-api` | Connector API, data model, configuration, errors, discovery | JSpecify annotations |
 | `dirx-dxi-connector-sdk-test` | `ConnectorTestKit`, `ConnectorContractTests`, `InMemoryConnector` | api, JUnit 5 |
 | `dirx-dxi-connector-sdk-rest` | `RestClient` with OAuth2, API key and basic authentication, TLS, retries, JSON and paging helpers | api, Jackson |
 | `dirx-dxi-connector-sdk-scim` | Generic, extensible `ScimConnector` (SCIM 2.0) | api, rest |

@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -97,11 +98,11 @@ public final class TlsSupport {
         return ks;
     }
 
-    private static char[] chars(SecretValue secret) {
+    private static @Nullable char[] chars(@Nullable SecretValue secret) {
         return secret != null ? secret.revealChars() : null;
     }
 
-    private static boolean notBlank(String s) {
+    private static boolean notBlank(@Nullable String s) {
         return s != null && !s.isBlank();
     }
 }

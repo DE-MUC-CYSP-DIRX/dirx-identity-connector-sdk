@@ -85,6 +85,10 @@ calls to missing operations as "unsupported operation".
 
 ### Object types and identifiers
 
+SDK packages are `@NullMarked` using JSpecify: values are non-null unless annotated
+`@Nullable`. The JSpecify annotations are exposed on the consumer compile API so connectors
+can use these contracts in IDEs and static nullness checkers; they add no runtime behavior.
+
 * `request.objectType()` names the kind of object, such as `Account` or `Group`. It is
   `null` if neither the workflow nor the connector configuration (`defaultObjectType`) sets
   one. Reject object types you do not support with `UNSUPPORTED_OPERATION`.

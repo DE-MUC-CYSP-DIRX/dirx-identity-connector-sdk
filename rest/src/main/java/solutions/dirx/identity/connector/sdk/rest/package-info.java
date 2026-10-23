@@ -21,4 +21,5 @@
  * (built on {@code java.net.http}), authentication strategies, HTTP error mapping, JSON to
  * attribute conversion and page cookies.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.rest;

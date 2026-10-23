@@ -19,6 +19,7 @@
 package solutions.dirx.identity.connector.sdk.scim;
 
 import java.net.URI;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
 import solutions.dirx.identity.connector.sdk.rest.HttpErrorMapper;
@@ -64,7 +65,7 @@ public final class ScimErrorMapper implements HttpErrorMapper {
         return new ConnectorException(code, fallback.getMessage());
     }
 
-    private static String scimType(RestResponse response) {
+    private static @Nullable String scimType(RestResponse response) {
         try {
             JsonNode type = response.json().path("scimType");
             return type.isString() ? type.asString() : null;

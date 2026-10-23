@@ -21,4 +21,5 @@
  * solutions.dirx.identity.connector.sdk.jdbc.JdbcConnector}: deleted rows are only marked inactive
  * and are hidden from searches.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.samples.jdbc;

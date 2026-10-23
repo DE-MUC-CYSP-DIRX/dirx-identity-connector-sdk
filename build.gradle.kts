@@ -182,6 +182,7 @@ configure(javaModules) {
     }
 
     dependencies {
+        "compileOnlyApi"(sdkLibs.jspecify)
         "testImplementation"(platform(sdkLibs.junit.bom))
         "testImplementation"(sdkLibs.junit.jupiter)
         "testRuntimeOnly"(sdkLibs.junit.platform.launcher)

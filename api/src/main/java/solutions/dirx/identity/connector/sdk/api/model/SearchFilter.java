@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.api.model;
 
 import java.util.List;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A search filter, modeled as an immutable, sealed syntax tree.
@@ -141,12 +142,17 @@ public sealed interface SearchFilter {
      * @param any       the inner parts; {@code null} is normalized to an empty list
      * @param fin       the final part, or {@code null}
      */
-    record Substring(String attribute, String initial, List<String> any, String fin) implements SearchFilter {
+    record Substring(String attribute, @Nullable String initial, List<String> any, @Nullable String fin)
+            implements SearchFilter {
         /** Validates and copies the components. */
-        public Substring {
+        public Substring(String attribute, @Nullable String initial, @Nullable List<String> any,
+                         @Nullable String fin) {
             requireAttribute(attribute);
-            any = any == null ? List.of() : List.copyOf(any);
-            if ((initial == null || initial.isEmpty()) && any.isEmpty() && (fin == null || fin.isEmpty())) {
+            this.attribute = attribute;
+            this.initial = initial;
+            this.any = any == null ? List.of() : List.copyOf(any);
+            this.fin = fin;
+            if ((initial == null || initial.isEmpty()) && this.any.isEmpty() && (fin == null || fin.isEmpty())) {
                 throw new IllegalArgumentException("substring filter needs at least one part");
             }
         }

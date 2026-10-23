@@ -19,6 +19,7 @@
 package solutions.dirx.identity.connector.sdk.api;
 
 import java.io.Serial;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A temporary failure, for example an unreachable target. The host may retry the operation
@@ -36,7 +37,7 @@ public class RetryableConnectorException extends ConnectorException {
      *                  or {@link ErrorCode#TIMEOUT}
      * @param message   the message
      */
-    public RetryableConnectorException(ErrorCode errorCode, String message) {
+    public RetryableConnectorException(ErrorCode errorCode, @Nullable String message) {
         super(errorCode, message);
     }
 
@@ -47,7 +48,7 @@ public class RetryableConnectorException extends ConnectorException {
      * @param message   the message
      * @param cause     the cause, or {@code null}
      */
-    public RetryableConnectorException(ErrorCode errorCode, String message, Throwable cause) {
+    public RetryableConnectorException(ErrorCode errorCode, @Nullable String message, @Nullable Throwable cause) {
         super(errorCode, message, cause);
     }
 

@@ -22,4 +22,5 @@
  * attributes, push simple filters to the server, page with offsets, and implement updates as
  * read-modify-write.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.samples.rest;

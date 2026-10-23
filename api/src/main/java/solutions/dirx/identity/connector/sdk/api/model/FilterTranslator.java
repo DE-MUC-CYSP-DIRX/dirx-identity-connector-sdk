@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
 
@@ -128,7 +129,8 @@ public interface FilterTranslator<T> {
      * @return the translation
      * @throws ConnectorException if not supported
      */
-    default T substring(String attribute, String initial, List<String> any, String fin) throws ConnectorException {
+    default T substring(String attribute, @Nullable String initial, List<String> any, @Nullable String fin)
+            throws ConnectorException {
         throw unsupported("substring");
     }
 

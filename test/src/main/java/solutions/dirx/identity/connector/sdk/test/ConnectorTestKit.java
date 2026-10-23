@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 
 import solutions.dirx.identity.connector.sdk.api.Connector;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
@@ -143,7 +144,7 @@ public final class ConnectorTestKit implements AutoCloseable {
      * Creates an object from attributes.
      *
      * @param objectType the object type
-     * @param identifier the identifier, or {@code null} if the target assigns it
+     * @param identifier the requested identifier
      * @param attributes the attributes
      * @return the result
      * @throws ConnectorException on failure
@@ -222,7 +223,7 @@ public final class ConnectorTestKit implements AutoCloseable {
      * @return all hits
      * @throws ConnectorException on failure
      */
-    public List<ConnectorObject> search(String objectType, SearchFilter filter) throws ConnectorException {
+    public List<ConnectorObject> search(String objectType, @Nullable SearchFilter filter) throws ConnectorException {
         return searchAll(SearchRequest.of(objectType, filter));
     }
 
@@ -238,7 +239,7 @@ public final class ConnectorTestKit implements AutoCloseable {
         SearchOp op = op(SearchOp.class);
         List<ConnectorObject> hits = new ArrayList<>();
         SearchRequest current = request;
-        String previousCookie = null;
+        @Nullable String previousCookie = null;
         while (true) {
             SearchResult result = op.search(current, o -> {
                 hits.add(o);

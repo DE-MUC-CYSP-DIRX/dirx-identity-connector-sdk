@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.jdbc;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jspecify.annotations.Nullable;
 import java.util.Objects;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.model.FilterTranslator;
@@ -71,7 +72,7 @@ public class SqlFilterTranslator implements FilterTranslator<SqlFragment> {
     }
 
     @Override
-    public SqlFragment substring(String attribute, String initial, List<String> any, String fin)
+    public SqlFragment substring(String attribute, @Nullable String initial, List<String> any, @Nullable String fin)
             throws ConnectorException {
         JdbcColumn column = column(attribute);
         StringBuilder pattern = new StringBuilder();

@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import java.util.Set;
 
 import tools.jackson.databind.JsonNode;
@@ -91,7 +92,7 @@ public class UserApiConnector implements Connector, TestOp, SchemaOp, CreateOp, 
     private static final Set<String> MULTI_VALUED = Set.of("roles");
     private static final Set<String> SERVER_FILTERABLE = Set.of("email", "active");
 
-    private RestClient client;
+    private @Nullable RestClient client;
 
     /** Creates an uninitialized connector. */
     public UserApiConnector() {

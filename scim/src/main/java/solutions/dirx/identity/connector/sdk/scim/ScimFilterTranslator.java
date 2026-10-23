@@ -21,6 +21,7 @@ package solutions.dirx.identity.connector.sdk.scim;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.FilterTranslator;
 
 /**
@@ -78,7 +79,7 @@ public class ScimFilterTranslator implements FilterTranslator<String> {
     }
 
     @Override
-    public String substring(String attribute, String initial, List<String> any, String fin) {
+    public String substring(String attribute, @Nullable String initial, List<String> any, @Nullable String fin) {
         List<String> parts = new java.util.ArrayList<>();
         if (initial != null && !initial.isEmpty()) {
             parts.add(compare(attribute, "sw", initial));

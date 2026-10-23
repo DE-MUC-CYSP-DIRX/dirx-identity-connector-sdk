@@ -35,6 +35,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import javax.net.ssl.SSLContext;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
 import solutions.dirx.identity.connector.sdk.api.RetryableConnectorException;
@@ -389,13 +390,13 @@ public final class RestClient {
     /** Builder for {@link RestClient}. */
     public static final class Builder {
         private final URI baseUri;
-        private HttpClient httpClient;
+        private @Nullable HttpClient httpClient;
         private HttpAuthentication authentication = HttpAuthentication.none();
-        private OAuth2ClientCredentials.Builder oauth2;
+        private OAuth2ClientCredentials.@Nullable Builder oauth2;
         private HttpErrorMapper errorMapper = HttpErrorMapper.DEFAULT;
         private Duration connectTimeout = Duration.ofSeconds(30);
         private Duration requestTimeout = Duration.ofSeconds(60);
-        private SSLContext sslContext;
+        private @Nullable SSLContext sslContext;
         private final Map<String, String> defaultHeaders = new LinkedHashMap<>();
         private int maxRetries = 2;
         private Duration retryBackoff = Duration.ofSeconds(1);

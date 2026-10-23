@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Supplier;
+import org.jspecify.annotations.Nullable;
 
 import solutions.dirx.identity.connector.sdk.api.config.ConnectorConfiguration;
 import solutions.dirx.identity.connector.sdk.api.config.ConnectorContext;
@@ -42,7 +43,7 @@ public final class TestConnectorContext implements ConnectorContext {
      * @param message the formatted message
      * @param thrown  the logged exception, or {@code null}
      */
-    public record LogRecord(String logger, System.Logger.Level level, String message, Throwable thrown) {
+    public record LogRecord(String logger, System.Logger.Level level, String message, @Nullable Throwable thrown) {
     }
 
     private final String instanceName;

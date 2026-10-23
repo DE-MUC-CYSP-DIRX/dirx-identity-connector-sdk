@@ -20,6 +20,7 @@ package solutions.dirx.identity.connector.sdk.api;
 
 import java.util.List;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.Attribute;
 import solutions.dirx.identity.connector.sdk.api.model.Identifier;
 
@@ -33,9 +34,10 @@ import solutions.dirx.identity.connector.sdk.api.model.Identifier;
 public record CreateResult(Identifier identifier, List<Attribute> attributes) {
 
     /** Validates and copies the components. */
-    public CreateResult {
+    public CreateResult(Identifier identifier, @Nullable List<Attribute> attributes) {
         Objects.requireNonNull(identifier, "identifier");
-        attributes = attributes == null ? List.of() : List.copyOf(attributes);
+        this.identifier = identifier;
+        this.attributes = attributes == null ? List.of() : List.copyOf(attributes);
     }
 
     /**

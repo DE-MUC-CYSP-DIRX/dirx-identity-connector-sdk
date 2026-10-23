@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An object read from the target system.
@@ -31,12 +32,14 @@ import java.util.Optional;
  * @param identifier the identifier of the object, not {@code null}
  * @param attributes the attributes; {@code null} is normalized to an empty list
  */
-public record ConnectorObject(String objectType, Identifier identifier, List<Attribute> attributes) {
+public record ConnectorObject(@Nullable String objectType, Identifier identifier, List<Attribute> attributes) {
 
     /** Validates and copies the components. */
-    public ConnectorObject {
+    public ConnectorObject(@Nullable String objectType, Identifier identifier, @Nullable List<Attribute> attributes) {
         Objects.requireNonNull(identifier, "identifier");
-        attributes = attributes == null ? List.of() : List.copyOf(attributes);
+        this.objectType = objectType;
+        this.identifier = identifier;
+        this.attributes = attributes == null ? List.of() : List.copyOf(attributes);
     }
 
     /**
@@ -66,7 +69,7 @@ public record ConnectorObject(String objectType, Identifier identifier, List<Att
      * @param identifier the identifier
      * @return a new builder
      */
-    public static Builder builder(String objectType, Identifier identifier) {
+    public static Builder builder(@Nullable String objectType, Identifier identifier) {
         return new Builder(objectType, identifier);
     }
 
@@ -76,7 +79,7 @@ public record ConnectorObject(String objectType, Identifier identifier, List<Att
         private final Identifier identifier;
         private final List<Attribute> attributes = new ArrayList<>();
 
-        private Builder(String objectType, Identifier identifier) {
+        private Builder(@Nullable String objectType, Identifier identifier) {
             this.objectType = objectType;
             this.identifier = identifier;
         }
@@ -88,7 +91,7 @@ public record ConnectorObject(String objectType, Identifier identifier, List<Att
          * @param values the values
          * @return this builder
          */
-        public Builder attribute(String name, Object... values) {
+        public Builder attribute(String name, @Nullable Object @Nullable ... values) {
             return attribute(name, values == null ? List.of() : Arrays.asList(values));
         }
 
@@ -99,7 +102,7 @@ public record ConnectorObject(String objectType, Identifier identifier, List<Att
          * @param values the values; {@code null} entries are ignored
          * @return this builder
          */
-        public Builder attribute(String name, List<?> values) {
+        public Builder attribute(String name, @Nullable List<@Nullable ?> values) {
             if (values != null) {
                 List<Object> nonNull = values.stream().filter(Objects::nonNull).map(Object.class::cast).toList();
                 if (!nonNull.isEmpty()) {

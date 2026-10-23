@@ -21,6 +21,7 @@ package solutions.dirx.identity.connector.sdk.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A piece of SQL with positional ({@code ?}) parameters.
@@ -28,12 +29,14 @@ import java.util.Objects;
  * @param sql        the SQL text
  * @param parameters the parameter values, in order
  */
-public record SqlFragment(String sql, List<Object> parameters) {
+public record SqlFragment(String sql, List<@Nullable Object> parameters) {
 
     /** Validates the components and copies the parameter list. */
-    public SqlFragment {
+    public SqlFragment(String sql, @Nullable List<@Nullable Object> parameters) {
         Objects.requireNonNull(sql, "sql");
-        parameters = parameters == null ? List.of() : java.util.Collections.unmodifiableList(new ArrayList<>(parameters));
+        this.sql = sql;
+        this.parameters = parameters == null
+                ? List.of() : java.util.Collections.unmodifiableList(new ArrayList<>(parameters));
     }
 
     /**

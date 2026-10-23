@@ -19,6 +19,7 @@
 package solutions.dirx.identity.connector.sdk.api;
 
 import java.util.List;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.Attribute;
 import solutions.dirx.identity.connector.sdk.api.model.Identifier;
 
@@ -29,13 +30,14 @@ import solutions.dirx.identity.connector.sdk.api.model.Identifier;
  * @param attributes attributes changed by the target as side effect; {@code null} is
  *                   normalized to an empty list
  */
-public record UpdateResult(Identifier identifier, List<Attribute> attributes) {
+public record UpdateResult(@Nullable Identifier identifier, List<Attribute> attributes) {
 
     private static final UpdateResult UNCHANGED = new UpdateResult(null, List.of());
 
     /** Copies the components. */
-    public UpdateResult {
-        attributes = attributes == null ? List.of() : List.copyOf(attributes);
+    public UpdateResult(@Nullable Identifier identifier, @Nullable List<Attribute> attributes) {
+        this.identifier = identifier;
+        this.attributes = attributes == null ? List.of() : List.copyOf(attributes);
     }
 
     /**

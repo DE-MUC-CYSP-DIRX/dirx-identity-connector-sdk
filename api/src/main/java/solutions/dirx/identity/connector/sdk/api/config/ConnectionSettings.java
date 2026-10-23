@@ -19,6 +19,7 @@
 package solutions.dirx.identity.connector.sdk.api.config;
 
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.model.SecretValue;
 
 /**
@@ -37,9 +38,11 @@ import solutions.dirx.identity.connector.sdk.api.model.SecretValue;
  * @param trustStore         path of the trust store
  * @param trustStorePassword password of the trust store
  */
-public record ConnectionSettings(String url, String server, Integer port, String user, SecretValue password,
-                                 boolean ssl, String keyStore, SecretValue keyStorePassword, String keyStoreAlias,
-                                 String trustStore, SecretValue trustStorePassword) {
+public record ConnectionSettings(@Nullable String url, @Nullable String server, @Nullable Integer port,
+                                 @Nullable String user, @Nullable SecretValue password, boolean ssl,
+                                 @Nullable String keyStore, @Nullable SecretValue keyStorePassword,
+                                 @Nullable String keyStoreAlias, @Nullable String trustStore,
+                                 @Nullable SecretValue trustStorePassword) {
 
     private static final ConnectionSettings EMPTY = builder().build();
 
@@ -90,17 +93,17 @@ public record ConnectionSettings(String url, String server, Integer port, String
 
     /** Builder for {@link ConnectionSettings}. */
     public static final class Builder {
-        private String url;
-        private String server;
-        private Integer port;
-        private String user;
-        private SecretValue password;
+        private @Nullable String url;
+        private @Nullable String server;
+        private @Nullable Integer port;
+        private @Nullable String user;
+        private @Nullable SecretValue password;
         private boolean ssl;
-        private String keyStore;
-        private SecretValue keyStorePassword;
-        private String keyStoreAlias;
-        private String trustStore;
-        private SecretValue trustStorePassword;
+        private @Nullable String keyStore;
+        private @Nullable SecretValue keyStorePassword;
+        private @Nullable String keyStoreAlias;
+        private @Nullable String trustStore;
+        private @Nullable SecretValue trustStorePassword;
 
         private Builder() {
         }
@@ -111,7 +114,7 @@ public record ConnectionSettings(String url, String server, Integer port, String
          * @param value the URL
          * @return this builder
          */
-        public Builder url(String value) {
+        public Builder url(@Nullable String value) {
             this.url = value;
             return this;
         }
@@ -122,7 +125,7 @@ public record ConnectionSettings(String url, String server, Integer port, String
          * @param value the host name
          * @return this builder
          */
-        public Builder server(String value) {
+        public Builder server(@Nullable String value) {
             this.server = value;
             return this;
         }
@@ -133,7 +136,7 @@ public record ConnectionSettings(String url, String server, Integer port, String
          * @param value the port
          * @return this builder
          */
-        public Builder port(Integer value) {
+        public Builder port(@Nullable Integer value) {
             this.port = value;
             return this;
         }
@@ -144,7 +147,7 @@ public record ConnectionSettings(String url, String server, Integer port, String
          * @param value the user
          * @return this builder
          */
-        public Builder user(String value) {
+        public Builder user(@Nullable String value) {
             this.user = value;
             return this;
         }
@@ -155,7 +158,7 @@ public record ConnectionSettings(String url, String server, Integer port, String
          * @param value the password
          * @return this builder
          */
-        public Builder password(SecretValue value) {
+        public Builder password(@Nullable SecretValue value) {
             this.password = value;
             return this;
         }
@@ -179,7 +182,7 @@ public record ConnectionSettings(String url, String server, Integer port, String
          * @param alias    the key alias
          * @return this builder
          */
-        public Builder keyStore(String path, SecretValue password, String alias) {
+        public Builder keyStore(@Nullable String path, @Nullable SecretValue password, @Nullable String alias) {
             this.keyStore = path;
             this.keyStorePassword = password;
             this.keyStoreAlias = alias;
@@ -193,7 +196,7 @@ public record ConnectionSettings(String url, String server, Integer port, String
          * @param password the trust store password
          * @return this builder
          */
-        public Builder trustStore(String path, SecretValue password) {
+        public Builder trustStore(@Nullable String path, @Nullable SecretValue password) {
             this.trustStore = path;
             this.trustStorePassword = password;
             return this;

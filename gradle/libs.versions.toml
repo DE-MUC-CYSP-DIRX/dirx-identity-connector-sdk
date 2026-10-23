@@ -18,6 +18,7 @@
 junit = "5.14.4"
 jackson = "3.2.3"
 hsqldb = "2.7.4"
+jspecify = "1.0.0"
 
 [libraries]
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
@@ -26,3 +27,4 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 jackson-databind = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson" }
 hsqldb = { module = "org.hsqldb:hsqldb", version.ref = "hsqldb" }
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }

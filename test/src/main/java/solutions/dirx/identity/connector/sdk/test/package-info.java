@@ -22,4 +22,5 @@
  * connector like a host, a log-recording {@link solutions.dirx.identity.connector.sdk.test.TestConnectorContext}, and the
  * reference {@link solutions.dirx.identity.connector.sdk.test.InMemoryConnector}.
  */
+@org.jspecify.annotations.NullMarked
 package solutions.dirx.identity.connector.sdk.test;

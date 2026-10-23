@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import org.jspecify.annotations.Nullable;
 
 import solutions.dirx.identity.connector.sdk.api.Connector;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
@@ -82,7 +83,7 @@ public class InMemoryConnector implements Connector, CreateOp, UpdateOp, DeleteO
 
     private static final Map<String, Map<String, ConnectorObject>> SHARED = new ConcurrentHashMap<>();
 
-    private Map<String, ConnectorObject> objects;
+    private @Nullable Map<String, ConnectorObject> objects;
 
     /** Creates an uninitialized connector. Hosts instantiate connectors through this constructor. */
     public InMemoryConnector() {

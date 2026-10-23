@@ -18,13 +18,15 @@
 
 package solutions.dirx.identity.connector.sdk.api;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Result of {@link SearchOp#search}.
  *
  * @param nextPageCookie the cookie to request the next page, or {@code null} if there are no
  *                       more pages
  */
-public record SearchResult(String nextPageCookie) {
+public record SearchResult(@Nullable String nextPageCookie) {
 
     private static final SearchResult DONE = new SearchResult(null);
 

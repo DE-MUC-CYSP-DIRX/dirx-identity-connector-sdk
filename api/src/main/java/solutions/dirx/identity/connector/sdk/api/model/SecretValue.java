@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A sensitive value such as a password or an API token.
@@ -36,7 +37,7 @@ public final class SecretValue {
 
     private static final String MASK = "****";
 
-    private char[] value;
+    private @Nullable char[] value;
 
     private SecretValue(char[] value) {
         this.value = value;

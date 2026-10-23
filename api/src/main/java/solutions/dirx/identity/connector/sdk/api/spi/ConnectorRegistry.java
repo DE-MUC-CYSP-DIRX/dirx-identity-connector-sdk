@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ServiceLoader;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.Connector;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.ErrorCode;
@@ -49,8 +50,8 @@ public final class ConnectorRegistry {
      * @param classLoader the class loader, or {@code null} for the thread context class loader
      * @return the registry
      */
-    public static ConnectorRegistry load(ClassLoader classLoader) {
-        ClassLoader cl = classLoader != null ? classLoader : Thread.currentThread().getContextClassLoader();
+    public static ConnectorRegistry load(@Nullable ClassLoader classLoader) {
+        @Nullable ClassLoader cl = classLoader != null ? classLoader : Thread.currentThread().getContextClassLoader();
         List<Descriptor> list = ServiceLoader.load(Connector.class, cl).stream()
                 .map(ServiceLoader.Provider::type)
                 .map(Descriptor::of)
@@ -93,10 +94,16 @@ public final class ConnectorRegistry {
                              List<String> objectTypes, Class<? extends Connector> type) {
 
         /** Validates and copies the components. */
-        public Descriptor {
+        public Descriptor(String name, String version, String displayName, String description,
+                          @Nullable List<String> objectTypes, Class<? extends Connector> type) {
             Objects.requireNonNull(name, "name");
             Objects.requireNonNull(type, "type");
-            objectTypes = objectTypes == null ? List.of() : List.copyOf(objectTypes);
+            this.name = name;
+            this.version = version;
+            this.displayName = displayName;
+            this.description = description;
+            this.objectTypes = objectTypes == null ? List.of() : List.copyOf(objectTypes);
+            this.type = type;
         }
 
         /**

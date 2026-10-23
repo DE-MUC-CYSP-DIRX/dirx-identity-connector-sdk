@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
+import org.jspecify.annotations.Nullable;
 import solutions.dirx.identity.connector.sdk.api.Connector;
 import solutions.dirx.identity.connector.sdk.api.ConnectorException;
 import solutions.dirx.identity.connector.sdk.api.CreateOp;
@@ -113,8 +114,8 @@ public class JdbcConnector implements Connector, TestOp, SchemaOp, CreateOp, Sea
     /** Prefix of properties passed to the JDBC driver. */
     public static final String PROP_DRIVER_PROPERTY_PREFIX = "jdbc.property.";
 
-    private ConnectorConfiguration configuration;
-    private Connection connection;
+    private @Nullable ConnectorConfiguration configuration;
+    private @Nullable Connection connection;
     private final Map<String, String> tableNames = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Map<String, String> keyColumns = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Map<String, JdbcTable> tables = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);

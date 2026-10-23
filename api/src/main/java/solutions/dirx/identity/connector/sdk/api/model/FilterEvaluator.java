@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Evaluates a {@link SearchFilter} against a {@link ConnectorObject} in memory.
@@ -51,7 +52,7 @@ public final class FilterEvaluator {
      * @param object the object to test
      * @return {@code true} if the object matches
      */
-    public static boolean matches(SearchFilter filter, ConnectorObject object) {
+    public static boolean matches(@Nullable SearchFilter filter, ConnectorObject object) {
         Objects.requireNonNull(object, "object");
         if (filter == null) {
             return true;

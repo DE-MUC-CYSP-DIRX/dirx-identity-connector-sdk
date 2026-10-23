@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 import tools.jackson.databind.JsonNode;
 
 /**
@@ -42,8 +43,8 @@ public final class RestRequest {
     private final String path;
     private final Map<String, List<String>> query;
     private final Map<String, String> headers;
-    private final byte[] body;
-    private final String contentType;
+    private final @Nullable byte[] body;
+    private final @Nullable String contentType;
     private final List<Integer> acceptedStatus;
 
     private RestRequest(Builder b) {
@@ -214,8 +215,8 @@ public final class RestRequest {
         private final String path;
         private final Map<String, List<String>> query = new LinkedHashMap<>();
         private final Map<String, String> headers = new LinkedHashMap<>();
-        private byte[] body;
-        private String contentType;
+        private @Nullable byte[] body;
+        private @Nullable String contentType;
         private final List<Integer> acceptedStatus = new ArrayList<>();
 
         private Builder(String method, String path) {
@@ -230,7 +231,7 @@ public final class RestRequest {
          * @param value the value
          * @return this builder
          */
-        public Builder query(String name, Object value) {
+        public Builder query(String name, @Nullable Object value) {
             if (value != null) {
                 query.computeIfAbsent(name, k -> new ArrayList<>()).add(String.valueOf(value));
             }
