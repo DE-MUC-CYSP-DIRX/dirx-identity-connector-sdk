@@ -82,6 +82,26 @@ maintained separately and are not part of this AGPL-3.0-only SDK.
 To use a Maven mirror, set `SDK_MAVEN_MIRROR_URL` (and optionally `SDK_MAVEN_MIRROR_USERNAME`
 and `SDK_MAVEN_MIRROR_PASSWORD`).
 
+## Publishing to internal Nexus
+
+Set `NEXUS_USERNAME` and `NEXUS_PASSWORD` in the environment, then run:
+
+```powershell
+.\gradlew.bat publishAllPublicationsToNexusHostedRepository
+```
+
+This publishes the SDK modules and BOM (not the samples) to the internal
+`GH_DE_MUC_CYSP_DIRX_MAVEN2_RHR` hosted repository at
+`https://nexus.gsissc.myatos.net/repository/GH_DE_MUC_CYSP_DIRX_MAVEN2_RHR/`.
+The version comes from `gradle.properties`.
+
+`NEXUS_PASSWORD` accepts plain text or UTF-8 text encoded as Base64 with an
+`enc:` prefix. Invalid Base64 fails the build explicitly. Base64 is encoding,
+not encryption; keep credentials out of source control.
+
+Local staging and the optional `SDK_PUBLISH_URL` release repository remain
+available. Use the repository-specific task above to publish only to Nexus.
+
 ## Contributing and security
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities as described in

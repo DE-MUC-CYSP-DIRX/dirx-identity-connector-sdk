@@ -16,6 +16,19 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import java.util.Base64
+
+fun decodeNexusPassword(password: String?): String? {
+    if (password == null || !password.startsWith("enc:")) {
+        return password
+    }
+    return try {
+        String(Base64.getDecoder().decode(password.removePrefix("enc:")), Charsets.UTF_8)
+    } catch (e: IllegalArgumentException) {
+        throw GradleException("NEXUS_PASSWORD has an 'enc:' prefix but is not valid Base64.", e)
+    }
+}
+
 /**
  * Verifies the open-source conventions of every SDK module:
  *  - all sources live below the package `solutions.dirx.identity.connector.sdk`,
@@ -94,6 +107,14 @@ subprojects {
             maven {
                 name = "staging"
                 url = uri(rootProject.layout.buildDirectory.dir("staging-repo"))
+            }
+            maven {
+                name = "nexusHosted"
+                url = uri("https://nexus.gsissc.myatos.net/repository/GH_DE_MUC_CYSP_DIRX_MAVEN2_RHR/")
+                credentials {
+                    username = System.getenv("NEXUS_USERNAME")
+                    password = decodeNexusPassword(System.getenv("NEXUS_PASSWORD"))
+                }
             }
             val publishUrl = System.getenv("SDK_PUBLISH_URL")
             if (!publishUrl.isNullOrEmpty()) {
